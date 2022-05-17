@@ -1,0 +1,77 @@
+.content-layout{
+    margin: 0;
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.bg-green-linear {
+    background-image: linear-gradient(
+      to right,
+      #0ba360,
+      #3cba92,
+      #30dd8a,
+      #2bb673
+    );
+    box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
+}
+
+@layer components{
+    .icon{
+        @apply relative flex items-center justify-center h-12 w-12 mt-2 mb-2 bg-gray-800 text-green-500 cursor-pointer
+        hover:bg-green-600 hover:text-white rounded-3xl hover:rounded-xl transition-all duration-300 ease-linear;
+    }
+
+    .icon-tooltip{
+        @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md
+        text-white bg-gray-900 
+        text-xs font-bold 
+        transition-all duration-100 scale-0 origin-left;
+    }
+
+    .content {
+        @apply 
+        h-full w-full 
+        overflow-hidden
+        bg-gray-300 dark:bg-gray-700
+        overflow-y-auto;
+    }
+
+    .navbar{
+        @apply row-start-1 row-end-2
+        w-screen h-16 flex-row flex justify-between text-center px-4 items-center bg-primary text-green-500 
+    }
+
+    .nav-icon {
+        @apply text-gray-600
+        mr-3 ml-4
+        transition duration-300 ease-in-out 
+        hover:text-green-500
+        cursor-pointer;
+    }
+
+    .main{
+        @apply row-start-2 row-end-3 
+        flex flex-col
+        h-full w-full 
+        mt-0 ml-0 mx-auto px-0 py-12 
+    }
+
+    .content-wrapper{
+        @apply mx-16
+    }
+
+    .footer{
+        @apply  row-start-3 row-end-4
+        bottom-0 w-screen flex items-center h-32 justify-center bg-primary text-white
+    }
+
+    .style-button{
+        @apply cursor-pointer text-white text-center
+        m-5 mt-32
+        w-60 h-14 text-base font-semibold  bg-[length:300%_100%]
+        rounded-[50px]
+        focus:outline-none
+        hover:bg-right-top transition-all duration-500 ease-in-out
+    }   
+}
