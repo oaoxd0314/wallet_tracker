@@ -1,16 +1,18 @@
+import {useState,useEffect} from "react"
+import {Routes , Route } from "react-router-dom"
+
+import useWallet from "./hooks/useWallet";
+
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import {Routes , Route } from "react-router-dom"
 import Home from "./components/Home";
-import { useWallet } from "./hooks/useWallet";
 
 function App() {
-  // const { currentAccount, setCurrentAccount } = useWallet();
+  const [wallet,setWallet] = useWallet('')
 
   return (
     <div className="content content-layout">
-      {/* <Header currentAccount={currentAccount} setCurrentAccount={setCurrentAccount} /> */}
-      <Header />
+      <Header wallet={wallet} setWallet={setWallet} />
       <main className="main">
         <div className="content-wrapper">
           <Routes>

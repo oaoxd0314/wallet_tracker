@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from 'react';
+import useLocalStorage from "./useLocalStorage";
 
-export const useWallet = () => {
+const useWallet = () => {
     const { ethereum } = window;
-    const [currentAccount, setCurrentAccount] = useState(ethereum.selectedAddress);
+    const [wallet,setWallet] = useLocalStorage('');
 
-    ethereum.on("accountsChanged", ([newAccount]) => {
-        console.log("accountsChanged: ", newAccount);
-        setCurrentAccount(newAccount);
-    })
+    if(ethereum){
+        ethereum.on("accountsChanged", ([newWallet]) => {
+            console.log("accountsChanged: ", newWallet);
+            setWallet(newWallet);
+        })
+    }
 
-    return { currentAccount, setCurrentAccount};
-}
+    return [wallet,setWallet];
+};
+
+export default useWallet;
