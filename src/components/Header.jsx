@@ -16,6 +16,7 @@ import { ReactComponent as MetaMaskIcon } from "../assets/icons/metamask.svg";
 import useDarkMode from "../hooks/useDarkMode";
 import { DropdownMenu, DropdownItem } from "./DropdownMenu";
 import { NavBar,DropDownNavItem } from "./Navbar";
+import { walletAddrShortcut } from "../service/parser";
 
 
 export default function Header({ wallet, setWallet }) {
@@ -54,15 +55,10 @@ const MainMenu = (props) => {
   const onBoarding = new MetaMaskOnboarding();
   const dropdownRef = useRef(null);
 
-  useEffect(() => {
-    setMenuHeight(dropdownRef.current?.firstChild.offsetHeight+32)
-  }, [])
+  // view stuff
+  
 
-  function calcHeight(el) {
-    const height = el.offsetHeight;
-    setMenuHeight(height+32);
-  }
-
+  // wallet stuff
   const connectWallet = async () => {
     if (ethereum) {
       const [account] = await ethereum.request({
@@ -96,7 +92,18 @@ const MainMenu = (props) => {
     onBoarding.startOnboarding();
   };
 
-  // -----  view case  -------
+  // ------- view stuff -------
+
+  useEffect(() => {
+    setMenuHeight(dropdownRef.current?.firstChild.offsetHeight+32)
+  }, [])
+
+  function calcHeight(el) {
+    const height = el.offsetHeight;
+    setMenuHeight(height+32);
+  }
+
+  // -------  view case  -------
   if(!props.wallet){
     return(
       <DropdownMenu>
@@ -118,7 +125,7 @@ const MainMenu = (props) => {
           onEnter={calcHeight}>
           <div>
             <DropdownItem onClick={()=>setActiveMenu('profile')} icon={<FaUserCircle />}> 
-              {props.wallet.substring(0, 7) + '...' +props.wallet.substring(props.wallet.length - 7)}
+              {walletAddrShortcut(props.wallet)}
             </DropdownItem>
             <DropdownItem icon={<BiLogOut />} onClick={() => logoutWallet()}>
               Logout
